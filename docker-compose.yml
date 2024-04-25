@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  nuxt-app:
+    image: node:18
+    platform: linux/amd64
+    volumes:
+      - ./.output:/app
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
+    command: node /app/server/index.mjs
+    networks:  
+      - dify-network  
+
+networks:  
+  dify-network:  
+    driver: bridge  
