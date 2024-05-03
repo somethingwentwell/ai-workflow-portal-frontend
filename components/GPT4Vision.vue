@@ -28,9 +28,9 @@ const payload = ref({
       ]
     }
   ],
-  "temperature": 0,
+  "temperature": 0.7,
   "top_p": 0.95,
-  "max_tokens": 1000
+  "max_tokens": 800
 }
 )
 
@@ -92,7 +92,6 @@ const sendMessage = async () => {
   messages.value.unshift(
     userMessage
   )
-  query.value = ''
 
   userContent.content.push({
     type: 'text',
@@ -101,6 +100,8 @@ const sendMessage = async () => {
 
   payload.value.messages.push(userContent)
 
+  query.value = ''
+
   messages.value.unshift({
         title: '###Loading###',
         description: 'SB',
@@ -108,6 +109,8 @@ const sendMessage = async () => {
       })
 
   let jsonBody = JSON.stringify(payload.value)
+
+  console.log(jsonBody)
 
   const response = await fetch(config.public.AZURE_OAI_ENDPOINT, {
     method: 'POST',
@@ -126,6 +129,15 @@ const sendMessage = async () => {
   try {
     if (data.choices[0].message.content) {
       let responseStr = data.choices[0].message.content
+      payload.value.messages.push({
+        "role": "assistant",
+        "content": [
+          {
+            "type": "text",
+            "text": responseStr
+          }
+        ]
+      })
       let responseArray = responseStr.split('\n')
       let responseArrayLength = responseArray.length
       let response = ''
@@ -169,8 +181,6 @@ const sendMessage = async () => {
 
 const fileChange = (value: any) => {
   images.value = value
-  
-  console.log(images.value)
 }
 
 
