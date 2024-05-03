@@ -29,10 +29,14 @@ const sidebarNavItems: Item[] = [
 //     title: 'Display',
 //     href: '/forms/display',
 //   },
-  {
-    title: 'Ask/Compare the Document',
-    href: '/forms/documentcompare',
+{
+    title: 'GPT4 Vision',
+    href: '/forms/gpt4vision',
   },
+  // {
+  //   title: 'Ask/Compare the Document',
+  //   href: '/forms/documentcompare',
+  // },
   {
     title: 'Hiring Requirements & JD Creation',
     href: '/forms/hiringrequirements',
